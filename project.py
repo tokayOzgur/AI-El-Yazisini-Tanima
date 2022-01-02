@@ -46,16 +46,36 @@ from matplotlib import pyplot as plt
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA 
 from sklearn.datasets import fetch_openml #mnist verisetini yüklemek için gerekli
-from sklearn.preprocessing import StandarScaler
-from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 
+mnist = fetch_openml('mnist_784') #datasetini sklearn kütüphanesinden çekiyoruz
+# mnist.data.shape => (70000,784) - 70bin tane satır kayıt 768 tanede sütünumuz vardır.
 
+#%% bu veri setinin içerisindeki rakam fotoğraflarını görmek için fonksiyon tanımlıyoruz
 
+#parametre olarak dataframe ve ilgili  fotoğrafının index numarasını alsın.
+def showimage(dframe, index):
+    some_digit = dframe.to_numpy()[index] #numpy array'e çeviriyoruz
+    some_digit_image = some_digit.reshape(28,28) #yeniden boyutlanıdırıyoruz
+    
+    plt.imshow(some_digit_image,cmap="binary")
+    plt.axis("off")
+    plt.show()
+    
+#örnek kullanımı
+showimage(mnist.data, 0)
 
+#%% Split Data --> Training Set  ve Test Set
 
+#test ve train oranı - 1/7 ve ve 6/7
+train_img, test_img, train_lbl, test_lbl = train_test_split(mnist.data, mnist.target, test_size=1/7.0, random_state=0)
+type(train_img)
 
+#Rakam tahminlerimizi check etmek için train_img dataframe'ini kopyalıyoruz, çünkü biraz sonra değişecektir.
+test_img_copy = test_img.copy()
+
+showimage(test_img_copy, 0)
 
 
 
