@@ -69,21 +69,61 @@ showimage(mnist.data, 0)
 #%% Split Data --> Training Set  ve Test Set
 
 #test ve train oranı - 1/7 ve ve 6/7
+# random olarak test ve train olarak ayıracak
 train_img, test_img, train_lbl, test_lbl = train_test_split(mnist.data, mnist.target, test_size=1/7.0, random_state=0)
-type(train_img)
+#type(train_img)
 
 #Rakam tahminlerimizi check etmek için train_img dataframe'ini kopyalıyoruz, çünkü biraz sonra değişecektir.
-test_img_copy = test_img.copy()
+test_img_copy = test_img.copy() #amaç verileri koppyalanmış veriler ile kıyaslamak
 
 showimage(test_img_copy, 0)
 
+#%% Verilerimiz Scale ediyoruz
+"""
+Çünkü PCA Scale edilmemiş verilerde hatalı sonuçlar verebiliyor bu nedenle mutlaka bu adımı gerçekleştiriyoruz.
+Bu amaçla  da StandardScaler kullanıyoruz.
+"""
+scaler = StandardScaler()
 
+# Scaler'ı sadece training set üzerinde fit yapmamız yeterli
+scaler.fit(train_img)
 
+#Ama transform işlemini hem training sete hem de test sete yapmamız gereklidir!
+train_img = scaler.transform(train_img)
+test_img = scaler.transform(test_img)
 
+#%% PCA işlemini uyguluyoruz
+#Variance'nın 95% oranında korunmasını istediğimizi belirtiyoruz
 
+# modelin bir örneğini yapıyoruz
+pca = PCA(.95) #bir objeye atıyoruz
 
+#PCA'yı sadece training sete yapmamız yeterlidir
+pca.fit(train_img) #
 
+#sonucu gösterelim
+print(pca.n_components_)
 
+#Şimdi transform işlemiyle hem train hem de test verisi setimizin  boyutlarını 784'ten 327'ye düşürelim
+train_img = pca.transform(train_img)
+test_img  = pca.transform(test_img)
+
+#%% 2.Aşama - Logistic Regression 
+
+#default solver çok yavaş çalıştığı için daha hızlı olan 'lfbgs' solverı seçerek logistic regression nesnemizi oluşuturuyoruz
+logisticReg = LogisticRegression(solver='lbfgs',max_iter=10000) #max iteri yazmazsak eğer, iteration yetmeyebiliyor ve hata veriyor program
+
+# Logistic Regression modelimizi train datamızı kullanarak eğitiyoruz
+logisticReg.fit(train_img, train_lbl) # belirtilen img'nin lbl'ı bu diye eğiticek bu şekilde 60bin tane veriyi kullanarak modelimizi eğitiyoruz
+
+#modelimiz eğitildi şimdi el yazısı rakamları makine öğrenmesi ile tanıma işlemini gerçekleştirelim
+logisticReg.predict(test_img[0].reshape(1,-1))#burada bakalım el yazısını modelimiz tanıyor mu? array(['0']) olmalı
+showimage(test_img_copy, 0)
+
+logisticReg.predict(test_img[1].reshape(1,-1))
+showimage(test_img_copy, 1)
+
+#%% 
 
 
 
