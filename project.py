@@ -124,25 +124,5 @@ logisticReg.predict(test_img[1].reshape(1,-1))
 showimage(test_img_copy, 1)
 
 #%% Modelimizin doğruluk oranını ölçmek - Accuracy
-logisticReg.score(test_img,test_lbl)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+logisticReg.score(test_img,test_lbl) #0.9184
 
