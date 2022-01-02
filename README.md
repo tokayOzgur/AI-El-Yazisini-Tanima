@@ -4,9 +4,9 @@
 ___
 
 ### Amaç : 
-    Birden fazla makine öğrenmesi modelini bir arada kullanarak, fotoğrataki objeleri tanıyan ve anlamlandıran bir yazılımdır.
+Birden fazla makine öğrenmesi modelini bir arada kullanarak, fotoğrataki objeleri tanıyan ve anlamlandıran bir yazılımdır.
     
-    Önce el yazısı ile yazılan rakamların fotoğraflarını sisteme yükleyip her bir rakam için sistemimizi eğiticez. Daha sonra sistemimize el yazısı ile yazılan yeni bir rakamı tanımasını isticez.
+Önce el yazısı ile yazılan rakamların fotoğraflarını sisteme yükleyip her bir rakam için sistemimizi eğiticez. Daha sonra sistemimize el yazısı ile yazılan yeni bir rakamı tanımasını isticez.
 
 ___
 
