@@ -2,7 +2,10 @@
 ### Fotoğraflardaki El Yazını Yapay Zeka İle Otomatik Tanıma Yazılımı
 
 ___
+### Projenin Sunumu;
+* [Sunum Dosyası](https://docs.google.com/presentation/d/16E-4N4Ywce9Pdnt_bObhtGPmELb5CQb4DgfUWgHJuxw/edit?usp=sharing)
 
+___
 ### Amaç : 
 Birden fazla makine öğrenmesi modelini bir arada kullanarak, fotoğrataki objeleri tanıyan ve anlamlandıran bir yazılımdır.
     
